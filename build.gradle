@@ -3,7 +3,9 @@
 buildscript {
     ext {
         kotlin_version = '1.1.60'
-        recyclerview_version = '27.0.2'
+        android_appcompat_version = '26.1.0'
+        android_arch_components_version = '1.0.0'
+        kotlin_databinding_compiler_version = '3.0.0'
     }
     repositories {
         google()
@@ -22,6 +24,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.google.com' }
     }
 }
 
