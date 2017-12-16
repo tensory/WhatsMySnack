@@ -1,4 +1,4 @@
-package net.tensory.whatsmysnack.snacksList
+package net.tensory.whatsmysnack.display
 
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import net.tensory.whatsmysnack.R
 import net.tensory.whatsmysnack.databinding.SnackListItemBinding
+import net.tensory.whatsmysnack.display.models.Snack
 
 /**
  * List adapter for snacks list.
  */
 class SnacksListAdapter : RecyclerView.Adapter<SnacksListAdapter.Companion.SnackViewHolder>() {
-    var items: List<String> = emptyList()
+    var items: List<Snack> = emptyList()
         set(items) {
             field = items
             notifyDataSetChanged()
