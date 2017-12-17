@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
         val adapter = SnacksListAdapter()
         viewBinding.snacksList.adapter = adapter
 
-        val viewModel = SnacksListViewModel(this.application)
+        val viewModel = SnacksListViewModel()
+        viewBinding.viewModel = viewModel
 
-        // TODO refactor - there's no need for this to be in the AAC
         viewModel.snacks.observe(this, Observer { data ->
             data?.let {
                 adapter.items = data
