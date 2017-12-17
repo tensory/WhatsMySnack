@@ -3,14 +3,19 @@ package net.tensory.whatsmysnack.display
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.BaseObservable
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import net.tensory.whatsmysnack.display.models.Snack
+import net.tensory.whatsmysnack.display.order.OrderView
 
 /**
  * Data model for snack list.
  */
-class SnacksListViewModel : BaseObservable() {
+class SnacksListViewModel : BaseObservable(), OrderView.OnDismissDelegate {
+    override fun onDismissOrderView() {
+        Log.i("ondismiss", "ondismiss")
+    }
+
     val snacks: LiveData<List<Snack>> = {
         val liveData = MutableLiveData<List<Snack>>()
         liveData.value = listOf(Snack("Oples", Snack.Type.VEGGIE), Snack("Bononos", Snack.Type.NON_VEGGIE))
@@ -18,6 +23,6 @@ class SnacksListViewModel : BaseObservable() {
     }()
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
-        Toast.makeText(view.context, "Yup", Toast.LENGTH_SHORT).show()
+        OrderView(view.context).show(this)
     }
 }
