@@ -6,12 +6,11 @@ import android.databinding.BaseObservable
 import android.util.Log
 import android.view.View
 import net.tensory.whatsmysnack.display.models.Snack
-import net.tensory.whatsmysnack.display.order.OrderView
 
 /**
  * Data model for snack list.
  */
-class SnacksListViewModel : BaseObservable(), OrderView.OnDismissDelegate {
+class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegate {
     override fun onDismissOrderView() {
         Log.i("ondismiss", "ondismiss")
     }
@@ -23,6 +22,6 @@ class SnacksListViewModel : BaseObservable(), OrderView.OnDismissDelegate {
     }()
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
-        OrderView(view.context).show(this)
+        SelectedItemsView(view.context).show(snacks.value, this)
     }
 }
