@@ -17,22 +17,24 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
 
     private var _snacks = listOf(Snack("Oples", Snack.Type.VEGGIE), Snack("Bononos", Snack.Type.NON_VEGGIE))
 
-    var snacks = _snacks
+    var snacks: LiveData<List<Snack>> = MutableLiveData()
         get() {
+            var liveData: MutableLiveData<List<Snack>> = MutableLiveData()
             if (showVeggies && showNonVeggies) {
-                return field
+                liveData.value = _snacks
             } else if (showVeggies) {
-                return field.filter { snack -> snack.type == Snack.Type.VEGGIE }
+                liveData.value = _snacks.filter { snack -> snack.type == Snack.Type.VEGGIE }
             } else if (showNonVeggies) {
-                return field.filter { snack -> snack.type == Snack.Type.NON_VEGGIE }
+                liveData.value = _snacks.filter { snack -> snack.type == Snack.Type.NON_VEGGIE }
             }
-            return arrayListOf<Snack>()
+            return liveData
         }
 
     var showVeggies = true
     var showNonVeggies = true
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
-        SelectedItemsView(view.context).show(snacks, this)
+        SelectedItemsView(view.context).show(snacks.value, this)
     }
 }
+
