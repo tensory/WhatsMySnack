@@ -17,10 +17,18 @@ class SnacksListViewModelTest {
     }
 
     @Test
-    fun data_withOneTypeSelected_onlyThatTypeDisplayed() {
+    fun data_withOneTypeSelected_onlyThatTypeIncluded () {
         viewModel.showVeggies = true
         viewModel.showNonVeggies = false
 
         assertThat(viewModel.snacks.all { snack -> snack.type == Snack.Type.VEGGIE })
+    }
+
+    @Test
+    fun data_withNoTypesSelected_noDataIncluded () {
+        viewModel.showVeggies = false
+        viewModel.showNonVeggies = false
+
+        assertThat(viewModel.snacks.isEmpty())
     }
 }
