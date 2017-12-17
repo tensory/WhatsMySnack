@@ -15,13 +15,24 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
         Log.i("ondismiss", "ondismiss")
     }
 
-    val snacks: LiveData<List<Snack>> = {
-        val liveData = MutableLiveData<List<Snack>>()
-        liveData.value = listOf(Snack("Oples", Snack.Type.VEGGIE), Snack("Bononos", Snack.Type.NON_VEGGIE))
-        liveData
-    }()
+    private var _snacks = listOf(Snack("Oples", Snack.Type.VEGGIE), Snack("Bononos", Snack.Type.NON_VEGGIE))
+
+    var snacks = _snacks
+        get() {
+            if (showVeggies && showNonVeggies) {
+                return field
+            } else if (showVeggies) {
+                return field.filter { snack -> snack.type == Snack.Type.VEGGIE }
+            } else if (showNonVeggies) {
+                return field.filter { snack -> snack.type == Snack.Type.NON_VEGGIE }
+            }
+            return arrayListOf<Snack>()
+        }
+
+    var showVeggies = true
+    var showNonVeggies = true
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
-        SelectedItemsView(view.context).show(snacks.value, this)
+        SelectedItemsView(view.context).show(snacks, this)
     }
 }

@@ -13,6 +13,7 @@ class SelectedItemsView(val context: Context) {
         fun onDismissOrderView()
     }
 
+    // TODO this is not very MVVM yet
     fun show(items: List<Snack>?, onDismissDelegate: OnDismissDelegate) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder

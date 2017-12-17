@@ -1,6 +1,5 @@
 package net.tensory.whatsmysnack.display
 
-import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -19,10 +18,10 @@ class MainActivity : AppCompatActivity() {
         val viewModel = SnacksListViewModel()
         viewBinding.viewModel = viewModel
 
-        viewModel.snacks.observe(this, Observer { data ->
-            data?.let {
-                adapter.items = data
-            }
-        })
+//        viewModel.snacks.observe(this, Observer { data ->
+//            data?.let {
+//                adapter.items = data
+//            }
+//        })
     }
 }

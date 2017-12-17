@@ -47,4 +47,6 @@ dependencies {
     // Android Architecture Components
     implementation "android.arch.lifecycle:extensions:$android_arch_components_version"
 
+    // AssertJ matchers
+    testImplementation 'org.assertj:assertj-core:3.8.0'
 }
