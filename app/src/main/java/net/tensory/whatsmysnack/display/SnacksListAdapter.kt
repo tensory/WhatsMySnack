@@ -5,6 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.R
 import net.tensory.whatsmysnack.databinding.SnackListItemBinding
 import net.tensory.whatsmysnack.display.models.Snack
@@ -27,6 +30,12 @@ class SnacksListAdapter : RecyclerView.Adapter<SnacksListAdapter.Companion.Snack
 
         val viewHolder = SnackViewHolder(binding.root)
         viewHolder.binding = binding
+
+        binding.checkbox.setOnCheckedChangeListener({ buttonView, isChecked ->
+            binding.notifyPropertyChanged(BR.snack)
+            Toast.makeText(buttonView.context, isChecked.toString(), LENGTH_SHORT).show()
+        })
+
         return viewHolder
     }
 

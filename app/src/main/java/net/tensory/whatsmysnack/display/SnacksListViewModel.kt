@@ -5,6 +5,10 @@ import android.arch.lifecycle.MutableLiveData
 import android.databinding.BaseObservable
 import android.util.Log
 import android.view.View
+import android.widget.CompoundButton
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.display.models.Snack
 
 /**
@@ -19,13 +23,9 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
 
     var snacks: LiveData<List<Snack>> = MutableLiveData()
         get() {
-            var liveData: MutableLiveData<List<Snack>> = MutableLiveData()
-            if (showVeggies && showNonVeggies) {
-                liveData.value = _snacks
-            } else if (showVeggies) {
-                liveData.value = _snacks.filter { snack -> snack.type == Snack.Type.VEGGIE }
-            } else if (showNonVeggies) {
-                liveData.value = _snacks.filter { snack -> snack.type == Snack.Type.NON_VEGGIE }
+            val liveData: MutableLiveData<List<Snack>> = MutableLiveData()
+            liveData.value = _snacks.filter { snack ->
+                (snack.type == Snack.Type.VEGGIE && showVeggies) || (snack.type == Snack.Type.NON_VEGGIE && showNonVeggies)
             }
             return liveData
         }

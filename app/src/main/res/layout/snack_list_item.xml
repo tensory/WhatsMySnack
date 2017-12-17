@@ -12,11 +12,12 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:checked="@{snack.selected}"/>
         <TextView
             android:text="@{snack.name}"
             android:textColor="@{snack.type == Snack.Type.VEGGIE ? @color/green : @color/red }"
