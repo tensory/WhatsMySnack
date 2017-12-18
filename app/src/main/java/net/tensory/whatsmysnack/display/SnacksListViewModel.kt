@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.databinding.Observable
-import android.util.Log
 import android.view.View
 import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.data.SnackDataSource
@@ -17,7 +16,9 @@ import net.tensory.whatsmysnack.data.models.databinding.Snack
 // TODO DI candidate
 class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), SelectedItemsView.OnDismissDelegate {
     override fun onDismissOrderView() {
-        Log.i("ondismiss", "TODO")
+        showVeggies = true
+        showNonVeggies = true
+        snacks.postValue(filterSnacks().onEach { it.selected = false })
     }
 
     var showVeggies = true
@@ -70,7 +71,7 @@ class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), 
 
     init {
         // Binding values to this model:
-        // Bind a change listener to the properties that change.
+        // Bind a change listener that checks the two properties that control the list.
         addOnPropertyChangedCallback(ControlPropertyChangedCallback())
     }
 
