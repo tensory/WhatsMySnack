@@ -19,10 +19,9 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
     }
 
     var showVeggies = true
-        // Add the getter for this field to the databinding resources (BR) namespace.
+            // Add the getter for this field to the databinding resources (BR) namespace.
         @Bindable
         get() = field
-
         set(value) {
             // Binding value to this model:
             // Bind a change notifier to the checkbox bound to this field.
@@ -31,6 +30,12 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
         }
 
     var showNonVeggies = true
+        @Bindable
+        get() = field
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.showNonVeggies)
+        }
 
     private var _snacks = listOf(Snack("Oples", Snack.Type.VEGGIE), Snack("Bononos", Snack.Type.NON_VEGGIE))
 
@@ -50,7 +55,8 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
     class ControlPropertyChangedCallback : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(observable: Observable?, propertyId: Int) {
             when (propertyId) {
-                BR.showVeggies -> Log.d(SnacksListViewModel::class.java::getName.toString(), "changed")
+                BR.showVeggies,
+                BR.showNonVeggies -> Log.d(SnacksListViewModel::class.java::getName.toString(), "changed")
             }
         }
     }
