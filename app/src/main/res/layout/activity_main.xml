@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:checked="@={viewModel.showVeggies}"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/veggies"/>
+            android:text="@string/veggie"/>
 
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/showNonVeggiesCheckbox"
@@ -38,8 +38,8 @@
             android:layout_weight="1"
             android:checked="@={viewModel.showNonVeggies}"
             app:layout_constraintStart_toEndOf="@id/verticalCenterGuideline"
-            android:text="@string/non_veggies"/>
-        
+            android:text="@string/non_veggie"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/snacksList"
             android:layout_width="0dp"

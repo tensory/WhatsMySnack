@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">What\'s My Snack?</string>
     <string name="submit">Submit</string>
-    <string name="separator">,&#x60;</string>
-    <string name="veggies">Veggies</string>
-    <string name="non_veggies">Non-Veggies</string>
+    <string name="separator">\n</string>
+    <string name="veggie">Veggie</string>
+    <string name="non_veggie">Non-veggie</string>
     <string name="confirm_your_order">Confirm your order</string>
 
     <string-array name="veggies">
