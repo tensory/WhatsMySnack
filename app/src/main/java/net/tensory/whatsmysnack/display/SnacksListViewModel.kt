@@ -23,7 +23,8 @@ class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), 
     var showVeggies = true
             // Add the getter for this field to the databinding resources (BR) namespace.
         @Bindable
-        get() = field
+        get
+
         set(value) {
             // Binding value to this model:
             // Bind a change notifier to the checkbox bound to this field.
@@ -34,7 +35,8 @@ class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), 
 
     var showNonVeggies = true
         @Bindable
-        get() = field
+        get
+
         set(value) {
             field = value
             notifyPropertyChanged(BR.showNonVeggies)
