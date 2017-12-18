@@ -9,6 +9,7 @@ import android.view.View
 import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.data.SnackDataSource
 import net.tensory.whatsmysnack.data.models.Snack
+import net.tensory.whatsmysnack.data.models.SnackType
 
 /**
  * Data model for snack list.
@@ -71,7 +72,7 @@ class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), 
 
     private fun filterSnacks(): List<Snack> {
         return _snacks.filter { snack ->
-            (snack.type == Snack.Type.VEGGIE && showVeggies) || (snack.type == Snack.Type.NON_VEGGIE && showNonVeggies)
+            (snack.type == SnackType.VEGGIE && showVeggies) || (snack.type == SnackType.NON_VEGGIE && showNonVeggies)
         }
     }
 
