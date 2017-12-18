@@ -2,8 +2,7 @@ package net.tensory.whatsmysnack.data
 
 import android.content.Context
 import net.tensory.whatsmysnack.R
-import net.tensory.whatsmysnack.data.models.Snack
-import net.tensory.whatsmysnack.data.models.SnackType
+import net.tensory.whatsmysnack.data.models.domain.Snack
 
 /**
  * Source for Snack data.

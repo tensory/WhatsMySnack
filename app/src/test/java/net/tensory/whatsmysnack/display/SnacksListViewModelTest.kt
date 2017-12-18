@@ -1,7 +1,7 @@
 package net.tensory.whatsmysnack.display
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import net.tensory.whatsmysnack.data.models.Snack
+import net.tensory.whatsmysnack.data.models.domain.Snack
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Rule

@@ -1,4 +1,4 @@
-package net.tensory.whatsmysnack.data.models
+package net.tensory.whatsmysnack.data
 
 /**
  * Type of snack.

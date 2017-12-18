@@ -7,7 +7,7 @@ import android.databinding.Observable
 import android.view.View
 import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.data.SnackDataSource
-import net.tensory.whatsmysnack.data.models.SnackType
+import net.tensory.whatsmysnack.data.SnackType
 import net.tensory.whatsmysnack.data.models.databinding.Snack
 
 /**
