@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="net.tensory.whatsmysnack.display.models.Snack"/>
+        <import type="net.tensory.whatsmysnack.data.models.Snack"/>
         <variable
             name="snack"
             type="Snack"/>
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            android:checked="@{snack.selected}"/>
+            android:checked="@{snack.selected}" />
         <TextView
             android:text="@{snack.name}"
             android:textColor="@{snack.type == Snack.Type.VEGGIE ? @color/green : @color/red }"

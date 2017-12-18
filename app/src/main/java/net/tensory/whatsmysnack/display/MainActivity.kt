@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import net.tensory.whatsmysnack.R
+import net.tensory.whatsmysnack.data.SnackDataSource
 import net.tensory.whatsmysnack.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = SnacksListAdapter()
         viewBinding.snacksList.adapter = adapter
 
-        val viewModel = SnacksListViewModel()
+        val viewModel = SnacksListViewModel(SnackDataSource(this))
         viewBinding.viewModel = viewModel
 
         viewModel.snacks.observe(this, Observer { data ->

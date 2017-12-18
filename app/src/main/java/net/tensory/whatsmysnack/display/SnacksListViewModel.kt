@@ -7,12 +7,14 @@ import android.databinding.Observable
 import android.util.Log
 import android.view.View
 import net.tensory.whatsmysnack.BR
-import net.tensory.whatsmysnack.display.models.Snack
+import net.tensory.whatsmysnack.data.SnackDataSource
+import net.tensory.whatsmysnack.data.models.Snack
 
 /**
  * Data model for snack list.
  */
-class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegate {
+// TODO DI candidate
+class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), SelectedItemsView.OnDismissDelegate {
     override fun onDismissOrderView() {
         Log.i("ondismiss", "TODO")
     }
@@ -24,6 +26,7 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
         set(value) {
             // Binding value to this model:
             // Bind a change notifier to the checkbox bound to this field.
+            // The property change listener is defined in the init block.
             field = value
             notifyPropertyChanged(BR.showVeggies)
         }
@@ -36,7 +39,8 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
             notifyPropertyChanged(BR.showNonVeggies)
         }
 
-    private var _snacks = listOf(Snack("Oples", Snack.Type.VEGGIE), Snack("Bononos", Snack.Type.NON_VEGGIE))
+    // Backing field for Snack data
+    private var _snacks = snackDataSource.fetchSnacks()
 
     var snacks: MutableLiveData<List<Snack>> = {
         val liveData = MutableLiveData<List<Snack>>()

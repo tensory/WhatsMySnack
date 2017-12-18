@@ -5,12 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
-import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.R
+import net.tensory.whatsmysnack.data.models.Snack
 import net.tensory.whatsmysnack.databinding.SnackListItemBinding
-import net.tensory.whatsmysnack.display.models.Snack
 
 /**
  * List adapter for snacks list.
