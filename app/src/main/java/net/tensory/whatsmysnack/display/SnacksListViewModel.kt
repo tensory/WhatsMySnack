@@ -3,11 +3,10 @@ package net.tensory.whatsmysnack.display
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.BaseObservable
+import android.databinding.Bindable
+import android.databinding.Observable
 import android.util.Log
 import android.view.View
-import android.widget.CompoundButton
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.display.models.Snack
 
@@ -16,8 +15,22 @@ import net.tensory.whatsmysnack.display.models.Snack
  */
 class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegate {
     override fun onDismissOrderView() {
-        Log.i("ondismiss", "ondismiss")
+        Log.i("ondismiss", "TODO")
     }
+
+    var showVeggies = true
+        // Add the getter for this field to the databinding resources (BR) namespace.
+        @Bindable
+        get() = field
+
+        set(value) {
+            // Binding value to this model:
+            // Bind a change notifier to the checkbox bound to this field.
+            field = value
+            notifyPropertyChanged(BR.showVeggies)
+        }
+
+    var showNonVeggies = true
 
     private var _snacks = listOf(Snack("Oples", Snack.Type.VEGGIE), Snack("Bononos", Snack.Type.NON_VEGGIE))
 
@@ -30,11 +43,22 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
             return liveData
         }
 
-    var showVeggies = true
-    var showNonVeggies = true
-
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
         SelectedItemsView(view.context).show(snacks.value, this)
+    }
+
+    class ControlPropertyChangedCallback : Observable.OnPropertyChangedCallback() {
+        override fun onPropertyChanged(observable: Observable?, propertyId: Int) {
+            when (propertyId) {
+                BR.showVeggies -> Log.d(SnacksListViewModel::class.java::getName.toString(), "changed")
+            }
+        }
+    }
+
+    init {
+        // Binding values to this model:
+        // Bind a change listener to the properties that change.
+        addOnPropertyChangedCallback(ControlPropertyChangedCallback())
     }
 }
 
