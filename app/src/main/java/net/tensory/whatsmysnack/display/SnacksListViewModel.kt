@@ -8,8 +8,8 @@ import android.util.Log
 import android.view.View
 import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.data.SnackDataSource
-import net.tensory.whatsmysnack.data.models.Snack
 import net.tensory.whatsmysnack.data.models.SnackType
+import net.tensory.whatsmysnack.data.models.databinding.Snack
 
 /**
  * Data model for snack list.
@@ -42,6 +42,8 @@ class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), 
 
     // Backing field for Snack data
     private var _snacks = snackDataSource.fetchSnacks()
+            .map { Snack(it.name, it.type) }
+            .sortedBy { it.name }
 
     var snacks: MutableLiveData<List<Snack>> = {
         val liveData = MutableLiveData<List<Snack>>()
@@ -50,7 +52,7 @@ class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), 
     }()
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
-        SelectedItemsView(view.context).show(snacks.value, this)
+        SelectedItemsView(view.context).show(snacks.value?.filter { it.selected }, this)
     }
 
     inner class ControlPropertyChangedCallback : Observable.OnPropertyChangedCallback() {

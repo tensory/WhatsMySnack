@@ -28,11 +28,6 @@ class SnacksListAdapter : RecyclerView.Adapter<SnacksListAdapter.Companion.Snack
         val viewHolder = SnackViewHolder(binding.root)
         viewHolder.binding = binding
 
-        binding.checkbox.setOnCheckedChangeListener({ buttonView, isChecked ->
-            binding.notifyPropertyChanged(BR.snack)
-            Toast.makeText(buttonView.context, isChecked.toString(), LENGTH_SHORT).show()
-        })
-
         return viewHolder
     }
 

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import net.tensory.whatsmysnack.R
 import net.tensory.whatsmysnack.data.SnackDataSource
-import net.tensory.whatsmysnack.data.models.databinding.Snack
 import net.tensory.whatsmysnack.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.snacks.observe(this, Observer { data ->
             data?.let {
-                adapter.items = data.map { snack -> Snack(snack.name, snack.type, false) }
+                adapter.items = data
             }
         })
     }
