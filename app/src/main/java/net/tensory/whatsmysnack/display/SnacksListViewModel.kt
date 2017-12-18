@@ -1,6 +1,5 @@
 package net.tensory.whatsmysnack.display
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
@@ -39,24 +38,23 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
 
     private var _snacks = listOf(Snack("Oples", Snack.Type.VEGGIE), Snack("Bononos", Snack.Type.NON_VEGGIE))
 
-    var snacks: LiveData<List<Snack>> = MutableLiveData()
-        get() {
-            val liveData: MutableLiveData<List<Snack>> = MutableLiveData()
-            liveData.value = _snacks.filter { snack ->
-                (snack.type == Snack.Type.VEGGIE && showVeggies) || (snack.type == Snack.Type.NON_VEGGIE && showNonVeggies)
-            }
-            return liveData
-        }
+    var snacks: MutableLiveData<List<Snack>> = {
+        val liveData = MutableLiveData<List<Snack>>()
+        liveData.value = filterSnacks()
+        liveData
+    }()
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
         SelectedItemsView(view.context).show(snacks.value, this)
     }
 
-    class ControlPropertyChangedCallback : Observable.OnPropertyChangedCallback() {
+    inner class ControlPropertyChangedCallback : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(observable: Observable?, propertyId: Int) {
             when (propertyId) {
                 BR.showVeggies,
-                BR.showNonVeggies -> Log.d(SnacksListViewModel::class.java::getName.toString(), "changed")
+                BR.showNonVeggies -> {
+                    snacks.postValue(filterSnacks())
+                }
             }
         }
     }
@@ -66,5 +64,12 @@ class SnacksListViewModel : BaseObservable(), SelectedItemsView.OnDismissDelegat
         // Bind a change listener to the properties that change.
         addOnPropertyChangedCallback(ControlPropertyChangedCallback())
     }
+
+    private fun filterSnacks(): List<Snack> {
+        return _snacks.filter { snack ->
+            (snack.type == Snack.Type.VEGGIE && showVeggies) || (snack.type == Snack.Type.NON_VEGGIE && showNonVeggies)
+        }
+    }
+
 }
 
