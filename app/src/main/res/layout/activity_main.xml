@@ -15,37 +15,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/snack_type_controls"
-            android:layout_width="match_parent"
+        <android.support.constraint.Guideline
+            android:id="@+id/verticalCenterGuideline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent">
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-            <CheckBox
-                android:id="@+id/show_veggies_checkbox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="@={viewModel.showVeggies}" />
+        <CheckBox
+            android:id="@+id/showVeggiesCheckbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="@={viewModel.showVeggies}"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/veggies" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/veggies"
+            app:layout_constraintBottom_toTopOf="@id/snacksList"
+            app:layout_constraintEnd_toStartOf="@id/verticalCenterGuideline"
+            app:layout_constraintStart_toEndOf="@id/showVeggiesCheckbox"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <CheckBox
-                android:id="@+id/show_non_veggies_checkbox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="@={viewModel.showNonVeggies}" />
+        <CheckBox
+            android:id="@+id/showNonVeggiesCheckbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="@={viewModel.showNonVeggies}"
+            app:layout_constraintStart_toEndOf="@id/verticalCenterGuideline" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/non_veggies" />
-        </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/non_veggies"
+            app:layout_constraintBottom_toTopOf="@id/snacksList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/showNonVeggiesCheckbox"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <android.support.v7.widget.RecyclerView
@@ -56,8 +65,9 @@
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/submitButton"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/snack_type_controls" />
+            app:layout_constraintTop_toBottomOf="@id/showVeggiesCheckbox" />
 
         <Button
             android:id="@+id/submitButton"
