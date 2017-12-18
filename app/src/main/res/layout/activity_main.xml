@@ -22,41 +22,24 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/showVeggiesCheckbox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="@={viewModel.showVeggies}"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/veggies"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/veggies"
-            app:layout_constraintBottom_toTopOf="@id/snacksList"
-            app:layout_constraintEnd_toStartOf="@id/verticalCenterGuideline"
-            app:layout_constraintStart_toEndOf="@id/showVeggiesCheckbox"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
+        <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/showNonVeggiesCheckbox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="@={viewModel.showNonVeggies}"
-            app:layout_constraintStart_toEndOf="@id/verticalCenterGuideline" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/non_veggies"
-            app:layout_constraintBottom_toTopOf="@id/snacksList"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/showNonVeggiesCheckbox"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
+            app:layout_constraintStart_toEndOf="@id/verticalCenterGuideline"
+            android:text="@string/non_veggies"/>
+        
         <android.support.v7.widget.RecyclerView
             android:id="@+id/snacksList"
             android:layout_width="0dp"
