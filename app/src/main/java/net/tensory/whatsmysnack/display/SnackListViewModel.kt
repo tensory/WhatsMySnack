@@ -14,6 +14,13 @@ import net.tensory.whatsmysnack.data.databinding.Snack
  * Data model for snack list.
  */
 class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(), SelectedItemsView.OnDismissDelegate {
+    fun MutableLiveData<List<Snack>>.makeVisible(snackType: SnackType, isVisible: Boolean) {
+        this.value?.filter { it.type == snackType }?.forEach {
+            it.visible = isVisible
+            it.notifyChange()
+        }
+    }
+
     override fun onDismissOrderView() {
         showVeggies = true
         showNonVeggies = true
@@ -55,11 +62,8 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
     inner class ControlPropertyChangedCallback : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(observable: Observable?, propertyId: Int) {
             when (propertyId) {
-                BR.showVeggies -> snacks.value?.filter { snack -> snack.type == SnackType.VEGGIE }?.forEach { snack ->
-                    snack.visible = showVeggies
-                    snack.notifyChange()
-                }
-                BR.showNonVeggies -> snacks.value?.filter { snack -> snack.type == SnackType.NON_VEGGIE }?.forEach { it.visible = showNonVeggies }
+                BR.showVeggies -> snacks.makeVisible(SnackType.VEGGIE, showVeggies)
+                BR.showNonVeggies -> snacks.makeVisible(SnackType.NON_VEGGIE, showNonVeggies)
             }
         }
     }
