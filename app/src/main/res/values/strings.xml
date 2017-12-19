@@ -5,19 +5,4 @@
     <string name="veggie">Veggie</string>
     <string name="non_veggie">Non-Veggie</string>
     <string name="confirm_your_order">Confirm order</string>
-
-    <string-array name="veggies">
-        <item>French fries</item>
-        <item>Veggieburger</item>
-        <item>Carrots</item>
-        <item>Apple</item>
-        <item>Banana</item>
-        <item>Milkshake</item>
-    </string-array>
-
-    <string-array name="non_veggies">
-        <item>Cheeseburger</item>
-        <item>Hamburger</item>
-        <item>Hot dog</item>
-    </string-array>
 </resources>

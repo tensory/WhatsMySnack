@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase
 @Database(entities = arrayOf(Snack::class), version = 2)
 abstract class SnackAppDatabase : RoomDatabase() {
     companion object {
-        const val name: String = "snacks"
+        const val name: String = "snacks.db"
     }
 
     abstract fun snackDao(): SnackDao
