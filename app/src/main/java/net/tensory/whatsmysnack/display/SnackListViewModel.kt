@@ -17,7 +17,8 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
     override fun onDismissOrderView() {
         showVeggies = true
         showNonVeggies = true
-        snacks.postValue(filterSnacks()?.onEach { it.selected = false })
+        // TODO fix
+//        snacks.postValue(filterSnacks()?.onEach { it.selected = false })
     }
 
     var showVeggies = true
@@ -40,16 +41,11 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
             notifyPropertyChanged(BR.showNonVeggies)
         }
 
-    // Backing field for Snack data
-    private val _snacks: MutableLiveData<List<Snack>> = snackDataProvider.fetchSnacks().let {
+    // TODO: This backing field is not necessary. Make "visible" a property of the databinding model.
+    val snacks: MutableLiveData<List<Snack>> = snackDataProvider.fetchSnacks().let {
         val mutableLiveData = MutableLiveData<List<Snack>>()
         mutableLiveData.value = it.value
         mutableLiveData
-    }
-
-    val snacks: MutableLiveData<List<Snack>> = MutableLiveData<List<Snack>>().let {
-        it.value = _snacks.value
-        it
     }
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
@@ -59,10 +55,11 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
     inner class ControlPropertyChangedCallback : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(observable: Observable?, propertyId: Int) {
             when (propertyId) {
-                BR.showVeggies,
-                BR.showNonVeggies -> {
-                    snacks.postValue(filterSnacks())
+                BR.showVeggies -> snacks.value?.filter { snack -> snack.type == SnackType.VEGGIE }?.forEach { snack ->
+                    snack.visible = showVeggies
+                    snack.notifyChange()
                 }
+                BR.showNonVeggies -> snacks.value?.filter { snack -> snack.type == SnackType.NON_VEGGIE }?.forEach { it.visible = showNonVeggies }
             }
         }
     }
@@ -71,10 +68,6 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
         // Binding values to this model:
         // Bind a change listener that checks the two properties that control the list.
         addOnPropertyChangedCallback(ControlPropertyChangedCallback())
-    }
-
-    private fun filterSnacks(): List<Snack>? = _snacks.value?.filter { snack ->
-        (snack.type == SnackType.VEGGIE && showVeggies) || (snack.type == SnackType.NON_VEGGIE && showNonVeggies)
     }
 }
 

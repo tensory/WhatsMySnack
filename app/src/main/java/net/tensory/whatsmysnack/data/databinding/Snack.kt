@@ -15,4 +15,6 @@ data class Snack(val name: String, val type: SnackType) : BaseObservable() {
 
     @Bindable
     get
+
+    var visible: Boolean = true
 }
