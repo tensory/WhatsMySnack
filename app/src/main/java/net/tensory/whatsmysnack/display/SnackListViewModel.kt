@@ -24,7 +24,6 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
             // Add the getter for this field to the databinding resources (BR) namespace.
         @Bindable
         get
-
         set(value) {
             // Binding value to this model:
             // Bind a change notifier to the checkbox bound to this field.
@@ -36,20 +35,22 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
     var showNonVeggies = true
         @Bindable
         get
-
         set(value) {
             field = value
             notifyPropertyChanged(BR.showNonVeggies)
         }
 
     // Backing field for Snack data
-    private var _snacks: MutableLiveData<List<Snack>> = snackDataProvider.fetchSnacks().let {
+    private val _snacks: MutableLiveData<List<Snack>> = snackDataProvider.fetchSnacks().let {
         val mutableLiveData = MutableLiveData<List<Snack>>()
         mutableLiveData.value = it.value
         mutableLiveData
     }
 
-    var snacks: MutableLiveData<List<Snack>> = _snacks
+    val snacks: MutableLiveData<List<Snack>> = MutableLiveData<List<Snack>>().let {
+        it.value = _snacks.value
+        it
+    }
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
         SelectedItemsView(view.context).show(snacks.value?.filter { it.selected }, this)
@@ -72,10 +73,8 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
         addOnPropertyChangedCallback(ControlPropertyChangedCallback())
     }
 
-    private fun filterSnacks(): List<Snack>? = _snacks.value?.let {
-        it.filter { snack ->
-            (snack.type == SnackType.VEGGIE && showVeggies) || (snack.type == SnackType.NON_VEGGIE && showNonVeggies)
-        }
+    private fun filterSnacks(): List<Snack>? = _snacks.value?.filter { snack ->
+        (snack.type == SnackType.VEGGIE && showVeggies) || (snack.type == SnackType.NON_VEGGIE && showNonVeggies)
     }
 }
 
