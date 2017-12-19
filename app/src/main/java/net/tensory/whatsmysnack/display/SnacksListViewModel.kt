@@ -6,15 +6,14 @@ import android.databinding.Bindable
 import android.databinding.Observable
 import android.view.View
 import net.tensory.whatsmysnack.BR
-import net.tensory.whatsmysnack.data.SnackDataSource
+import net.tensory.whatsmysnack.data.SnackDataProvider
 import net.tensory.whatsmysnack.data.SnackType
 import net.tensory.whatsmysnack.data.models.databinding.Snack
 
 /**
  * Data model for snack list.
  */
-// TODO DI candidate
-class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), SelectedItemsView.OnDismissDelegate {
+class SnacksListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(), SelectedItemsView.OnDismissDelegate {
     override fun onDismissOrderView() {
         showVeggies = true
         showNonVeggies = true
@@ -44,7 +43,7 @@ class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), 
         }
 
     // Backing field for Snack data
-    private var _snacks = snackDataSource.fetchSnacks()
+    private var _snacks = snackDataProvider.fetchSnacks()
             .map { Snack(it.name, it.type) }
             .sortedBy { it.name }
 
@@ -80,6 +79,5 @@ class SnacksListViewModel(snackDataSource: SnackDataSource) : BaseObservable(), 
             (snack.type == SnackType.VEGGIE && showVeggies) || (snack.type == SnackType.NON_VEGGIE && showNonVeggies)
         }
     }
-
 }
 

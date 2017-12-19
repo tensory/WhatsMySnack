@@ -7,7 +7,7 @@ import net.tensory.whatsmysnack.data.models.domain.Snack
 /**
  * Source for Snack data.
  */
-class SnackDataSource(val context: Context) {
+class SnackDataProvider(private val context: Context) {
 
     fun fetchSnacks(): List<Snack> {
         val snacks = mutableListOf<Snack>()
