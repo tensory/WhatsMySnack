@@ -9,6 +9,7 @@ import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.data.SnackDataProvider
 import net.tensory.whatsmysnack.data.SnackType
 import net.tensory.whatsmysnack.data.databinding.Snack
+import java.util.Collections
 
 /**
  * Data model for snack list.
@@ -50,7 +51,13 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
             notifyPropertyChanged(BR.showNonVeggies)
         }
 
-    val snacks: LiveData<List<Snack>> = snackDataProvider.fetchSnacks()
+    val snacks: LiveData<List<Snack>> = {
+        val data = snackDataProvider.fetchSnacks()
+        data.value?.let {
+            Collections.sort(it, { s1, s2 -> s1.name.compareTo(s2.name) })
+        }
+        data
+    }()
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
         SelectedItemsView(view.context).show(snacks.value?.filter { it.selected }, this)
