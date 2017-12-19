@@ -6,6 +6,7 @@ buildscript {
         android_appcompat_version = '26.1.0'
         android_arch_components_version = '1.0.0'
         kotlin_databinding_compiler_version = '3.0.0'
+        dagger_2_version = '2.11'
     }
     repositories {
         google()
