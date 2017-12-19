@@ -43,16 +43,20 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
             // Binding value to this model:
             // Bind a change notifier to the checkbox bound to this field.
             // The property change listener is defined in the init block.
-            field = value
-            notifyPropertyChanged(BR.showVeggies)
+            if (field != value) {
+                field = value
+                notifyPropertyChanged(BR.showVeggies)
+            }
         }
 
     var showNonVeggies = true
         @Bindable
         get
         set(value) {
-            field = value
-            notifyPropertyChanged(BR.showNonVeggies)
+            if (field != value) {
+                field = value
+                notifyPropertyChanged(BR.showNonVeggies)
+            }
         }
 
     val snacks: LiveData<List<Snack>> = snackDataProvider.fetchSnacks().also { it.alphabetize() }
