@@ -13,7 +13,7 @@ import net.tensory.whatsmysnack.data.models.databinding.Snack
 /**
  * Data model for snack list.
  */
-class SnacksListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(), SelectedItemsView.OnDismissDelegate {
+class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(), SelectedItemsView.OnDismissDelegate {
     override fun onDismissOrderView() {
         showVeggies = true
         showNonVeggies = true

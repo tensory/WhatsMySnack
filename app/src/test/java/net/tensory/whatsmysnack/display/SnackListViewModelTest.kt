@@ -1,21 +1,25 @@
 package net.tensory.whatsmysnack.display
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import net.tensory.whatsmysnack.data.models.domain.Snack
+import net.tensory.whatsmysnack.data.SnackDataProvider
+import net.tensory.whatsmysnack.data.SnackType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.InjectMocks
 
 /**
  * Test data selection by property value.
  */
-class SnacksListViewModelTest {
-    private lateinit var viewModel: SnacksListViewModel
+class SnackListViewModelTest {
+    private lateinit var viewModel: SnackListViewModel
+
+    @InjectMocks lateinit var snackDataProvider: SnackDataProvider
 
     @Before
     fun setUp() {
-        viewModel = SnacksListViewModel()
+        viewModel = SnackListViewModel(snackDataProvider)
     }
 
     @Rule
@@ -27,7 +31,7 @@ class SnacksListViewModelTest {
         viewModel.showVeggies = true
         viewModel.showNonVeggies = false
 
-        assertThat(viewModel.snacks.value?.all { snack -> snack.type == Snack.Type.VEGGIE })
+        assertThat(viewModel.snacks.value?.all { snack -> snack.type == SnackType.VEGGIE })
     }
 
     @Test

@@ -1,7 +1,7 @@
 package net.tensory.whatsmysnack.injection
 
 import dagger.Component
-import net.tensory.whatsmysnack.SnacksApplication
+import net.tensory.whatsmysnack.SnackApplication
 import net.tensory.whatsmysnack.display.MainActivity
 import javax.inject.Singleton
 
@@ -11,6 +11,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(ApplicationModule::class, DataProviderModule::class))
 interface DataComponent {
-    fun inject(application: SnacksApplication)
+    fun inject(application: SnackApplication)
     fun inject(mainActivity: MainActivity)
 }

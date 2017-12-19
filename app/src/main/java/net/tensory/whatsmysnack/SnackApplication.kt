@@ -5,7 +5,7 @@ import net.tensory.whatsmysnack.injection.ApplicationModule
 import net.tensory.whatsmysnack.injection.DaggerDataComponent
 import net.tensory.whatsmysnack.injection.DataComponent
 
-class SnacksApplication : Application() {
+class SnackApplication : Application() {
     lateinit var dataComponent: DataComponent
 
     override fun onCreate() {

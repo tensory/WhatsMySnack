@@ -12,7 +12,7 @@ import net.tensory.whatsmysnack.databinding.SnackListItemBinding
 /**
  * List adapter for snacks list.
  */
-class SnacksListAdapter : RecyclerView.Adapter<SnacksListAdapter.Companion.SnackViewHolder>() {
+class SnackListAdapter : RecyclerView.Adapter<SnackListAdapter.Companion.SnackViewHolder>() {
     var items: List<Snack> = emptyList()
         set(items) {
             field = items

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="net.tensory.whatsmysnack.display.SnacksListViewModel" />
+            type="net.tensory.whatsmysnack.display.SnackListViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
