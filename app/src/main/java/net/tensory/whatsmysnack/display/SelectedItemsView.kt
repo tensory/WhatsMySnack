@@ -17,7 +17,7 @@ class SelectedItemsView(val context: Context) {
     fun show(items: List<Snack>?, onDismissDelegate: OnDismissDelegate) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder
-                .setTitle(R.string.confirm_your_order)
+                .setTitle(R.string.confirm_order)
                 .setMessage(items?.map { item -> item.name }
                         ?.joinToString(separator = context.getString(R.string.separator)))
                 .setPositiveButton(android.R.string.ok) { _, _ ->

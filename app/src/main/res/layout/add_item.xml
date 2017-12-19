@@ -4,13 +4,16 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:paddingStart="?attr/dialogPreferredPadding"
+        android:paddingEnd="?attr/dialogPreferredPadding">
         <EditText
-            android:layout_width="match_parent"
+            android:id="@+id/snack_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/snack_name"
-            android:id="@+id/snack_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <RadioGroup
@@ -18,14 +21,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/snack_name">
+
             <android.support.v7.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/veggie"/>
+                android:text="@string/veggie" />
+
             <android.support.v7.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/non_veggie"/>
+                android:text="@string/non_veggie" />
         </RadioGroup>
 
     </android.support.constraint.ConstraintLayout>

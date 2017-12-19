@@ -3,8 +3,9 @@
     <string name="submit">Submit</string>
     <string name="separator">\n</string>
     <string name="veggie">Veggie</string>
-    <string name="non_veggie">Non-Veggie</string>
-    <string name="confirm_your_order">Confirm order</string>
+    <string name="non_veggie">Non-veggie</string>
+    <string name="confirm_order">Confirm order</string>
     <string name="add">Add</string>
     <string name="snack_name">Snack name</string>
+    <string name="add_snack">Add a snack</string>
 </resources>

@@ -1,6 +1,7 @@
 package net.tensory.whatsmysnack.display
 
 import android.arch.lifecycle.Observer
+import android.content.DialogInterface
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -20,7 +21,14 @@ class MainActivity : AppCompatActivity(), AddItemPresenter {
 
     override fun addItem() {
         AlertDialog.Builder(this)
+                .setTitle(R.string.add_snack)
                 .setView(R.layout.add_item)
+                .setPositiveButton(android.R.string.ok, DialogInterface.OnClickListener { dialogInterface, i ->
+
+                })
+                .setNegativeButton(android.R.string.cancel, { dialogInterface, _ ->
+                    dialogInterface.cancel()
+                })
                 .show()
     }
 
