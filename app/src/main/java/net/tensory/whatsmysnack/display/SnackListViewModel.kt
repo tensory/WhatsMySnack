@@ -1,6 +1,6 @@
 package net.tensory.whatsmysnack.display
 
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.LiveData
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.databinding.Observable
@@ -14,7 +14,7 @@ import net.tensory.whatsmysnack.data.databinding.Snack
  * Data model for snack list.
  */
 class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(), SelectedItemsView.OnDismissDelegate {
-    fun MutableLiveData<List<Snack>>.makeVisible(snackType: SnackType, isVisible: Boolean) {
+    fun LiveData<List<Snack>>.makeVisible(snackType: SnackType, isVisible: Boolean) {
         this.value?.filter { it.type == snackType }?.forEach {
             it.visible = isVisible
             it.notifyChange()
@@ -49,11 +49,7 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
         }
 
     // TODO: This backing field is not necessary. Make "visible" a property of the databinding model.
-    val snacks: MutableLiveData<List<Snack>> = snackDataProvider.fetchSnacks().let {
-        val mutableLiveData = MutableLiveData<List<Snack>>()
-        mutableLiveData.value = it.value
-        mutableLiveData
-    }
+    val snacks: LiveData<List<Snack>> = snackDataProvider.fetchSnacks()
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
         SelectedItemsView(view.context).show(snacks.value?.filter { it.selected }, this)
