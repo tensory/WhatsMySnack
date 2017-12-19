@@ -1,6 +1,5 @@
 package net.tensory.whatsmysnack.data.persistence.room
 
-import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Query
 
@@ -9,6 +8,6 @@ import android.arch.persistence.room.Query
  */
 @Dao
 interface SnackDao {
-    @Query("SELECT * from snacks")
-    fun getAll(): LiveData<List<Snack>>
+    @get:Query("SELECT * from snacks")
+    val snacks: List<Snack>
 }

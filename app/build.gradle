@@ -58,6 +58,9 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     kapt "android.arch.persistence.room:compiler:1.0.0"
 
+    // Pre-loading data utility for Room database
+    implementation 'com.github.humazed:RoomAsset:v1.0'
+
     // DI with Dagger2
     kapt "com.google.dagger:dagger-compiler:$dagger_2_version"
     implementation "com.google.dagger:dagger:$dagger_2_version"

@@ -1,7 +1,7 @@
 package net.tensory.whatsmysnack.injection
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import com.huma.room_for_asset.RoomAsset
 import dagger.Module
 import dagger.Provides
 import net.tensory.whatsmysnack.data.persistence.room.SnackAppDatabase
@@ -15,6 +15,7 @@ class ApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideSnackAppDatabase(): SnackAppDatabase = Room.databaseBuilder(application.applicationContext, SnackAppDatabase::class.java, "snacks")
+    fun provideSnackAppDatabase(): SnackAppDatabase = RoomAsset.databaseBuilder(application.applicationContext, SnackAppDatabase::class.java, "boolean_snacks.db")
+            .allowMainThreadQueries()
             .build()
 }
