@@ -9,7 +9,7 @@ import javax.inject.Singleton
  * Defines valid targets for injection of provided types.
  */
 @Singleton
-@Component(modules = arrayOf(ApplicationModule::class, DataProviderModule::class))
+@Component(modules = arrayOf(ApplicationModule::class, DataModule::class))
 interface DataComponent {
     fun inject(application: SnackApplication)
     fun inject(mainActivity: MainActivity)
