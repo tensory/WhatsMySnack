@@ -22,6 +22,10 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
         }
     }
 
+    private fun LiveData<List<Snack>>.alphabetize() = this.value?.let {
+        Collections.sort(it, { s1, s2 -> s1.name.compareTo(s2.name) })
+    }
+
     override fun onDismissOrderView() {
         showVeggies = true
         showNonVeggies = true
@@ -51,13 +55,7 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
             notifyPropertyChanged(BR.showNonVeggies)
         }
 
-    val snacks: LiveData<List<Snack>> = {
-        val data = snackDataProvider.fetchSnacks()
-        data.value?.let {
-            Collections.sort(it, { s1, s2 -> s1.name.compareTo(s2.name) })
-        }
-        data
-    }()
+    val snacks: LiveData<List<Snack>> = snackDataProvider.fetchSnacks().also { it.alphabetize() }
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
         SelectedItemsView(view.context).show(snacks.value?.filter { it.selected }, this)
