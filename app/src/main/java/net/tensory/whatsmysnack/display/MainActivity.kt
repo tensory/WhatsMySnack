@@ -1,7 +1,6 @@
 package net.tensory.whatsmysnack.display
 
 import android.arch.lifecycle.Observer
-import android.content.DialogInterface
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -12,7 +11,9 @@ import net.tensory.whatsmysnack.R
 import net.tensory.whatsmysnack.SnackApplication
 import net.tensory.whatsmysnack.data.SnackDataProvider
 import net.tensory.whatsmysnack.databinding.ActivityMainBinding
+import net.tensory.whatsmysnack.databinding.AddItemBinding
 import net.tensory.whatsmysnack.display.additem.AddItemPresenter
+import net.tensory.whatsmysnack.display.additem.AddItemViewModel
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), AddItemPresenter {
@@ -20,11 +21,14 @@ class MainActivity : AppCompatActivity(), AddItemPresenter {
     // region AddItemPresenter implementation
 
     override fun addItem() {
+        val viewBinding = AddItemBinding.inflate(layoutInflater, null, false)
+        val viewModel = AddItemViewModel()
+        viewBinding.viewModel = viewModel
         AlertDialog.Builder(this)
                 .setTitle(R.string.add_snack)
-                .setView(R.layout.add_item)
-                .setPositiveButton(android.R.string.ok, DialogInterface.OnClickListener { dialogInterface, i ->
-
+                .setView(viewBinding.root)
+                .setPositiveButton(android.R.string.ok, { _, _ ->
+                    viewModel.addItem()
                 })
                 .setNegativeButton(android.R.string.cancel, { dialogInterface, _ ->
                     dialogInterface.cancel()
