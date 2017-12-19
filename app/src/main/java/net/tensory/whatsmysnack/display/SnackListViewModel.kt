@@ -24,8 +24,10 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
     override fun onDismissOrderView() {
         showVeggies = true
         showNonVeggies = true
-        // TODO fix
-//        snacks.postValue(filterSnacks()?.onEach { it.selected = false })
+        snacks.value?.forEach {
+            it.selected = false
+            it.notifyChange()
+        }
     }
 
     var showVeggies = true
@@ -48,7 +50,6 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
             notifyPropertyChanged(BR.showNonVeggies)
         }
 
-    // TODO: This backing field is not necessary. Make "visible" a property of the databinding model.
     val snacks: LiveData<List<Snack>> = snackDataProvider.fetchSnacks()
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
