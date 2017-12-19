@@ -37,7 +37,7 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
 
     var showVeggies = true
             // Add the getter for this field to the databinding resources (BR) namespace.
-        @Bindable
+        @Bindable // annotation applies to getter only
         get
         set(value) {
             // Binding value to this model:
