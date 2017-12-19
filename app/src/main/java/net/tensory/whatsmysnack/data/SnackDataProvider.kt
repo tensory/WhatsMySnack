@@ -1,18 +1,12 @@
 package net.tensory.whatsmysnack.data
 
-import android.content.Context
-import net.tensory.whatsmysnack.R
 import net.tensory.whatsmysnack.data.models.domain.Snack
+import net.tensory.whatsmysnack.data.persistence.room.SnackAppDatabase
 
 /**
  * Source for Snack data.
  */
-class SnackDataProvider(private val context: Context) {
+class SnackDataProvider(val snackAppDatabase: SnackAppDatabase) {
 
-    fun fetchSnacks(): List<Snack> {
-        val snacks = mutableListOf<Snack>()
-        context.resources.getStringArray(R.array.veggies).forEach { snacks.add(Snack(it, SnackType.VEGGIE)) }
-        context.resources.getStringArray(R.array.non_veggies).forEach { snacks.add(Snack(it, SnackType.NON_VEGGIE)) }
-        return snacks
-    }
+    fun fetchSnacks(): List<Snack> = snackAppDatabase.snackDao().getAll().map { Snack(it.name, it.type) }
 }

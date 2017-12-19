@@ -3,6 +3,7 @@ package net.tensory.whatsmysnack.injection
 import dagger.Module
 import dagger.Provides
 import net.tensory.whatsmysnack.data.SnackDataProvider
+import net.tensory.whatsmysnack.data.persistence.room.SnackAppDatabase
 import javax.inject.Singleton
 
 /**
@@ -12,5 +13,5 @@ import javax.inject.Singleton
 class DataModule {
     @Provides
     @Singleton
-    fun provideSnackDataProvider() = SnackDataProvider()
+    fun provideSnackDataProvider(snackAppDatabase: SnackAppDatabase) = SnackDataProvider(snackAppDatabase)
 }
