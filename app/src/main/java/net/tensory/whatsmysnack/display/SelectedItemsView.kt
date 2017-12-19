@@ -3,7 +3,7 @@ package net.tensory.whatsmysnack.display
 import android.content.Context
 import android.support.v7.app.AlertDialog
 import net.tensory.whatsmysnack.R
-import net.tensory.whatsmysnack.data.models.databinding.Snack
+import net.tensory.whatsmysnack.data.databinding.Snack
 
 /**
  * Launch a view of selected choices.

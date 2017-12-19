@@ -1,12 +1,19 @@
 package net.tensory.whatsmysnack.data
 
-import net.tensory.whatsmysnack.data.models.domain.Snack
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
+import net.tensory.whatsmysnack.data.databinding.Snack
 import net.tensory.whatsmysnack.data.persistence.room.SnackAppDatabase
 
 /**
  * Source for Snack data.
  */
-class SnackDataProvider(val snackAppDatabase: SnackAppDatabase) {
+class SnackDataProvider(private val snackAppDatabase: SnackAppDatabase) {
 
-    fun fetchSnacks(): List<Snack> = snackAppDatabase.snackDao().getAll().map { Snack(it.name, it.type) }
+    fun fetchSnacks(): LiveData<List<Snack>> = Transformations.switchMap(snackAppDatabase.snackDao().getAll(), { liveData ->
+        val domainData = MutableLiveData<List<Snack>>()
+        domainData.value = liveData.map { persistedSnack -> Snack(persistedSnack.name, persistedSnack.type) }
+        domainData
+    })
 }

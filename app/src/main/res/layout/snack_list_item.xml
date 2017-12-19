@@ -4,7 +4,7 @@
 
     <data>
         <import type="net.tensory.whatsmysnack.data.SnackType"/>
-        <import type="net.tensory.whatsmysnack.data.models.databinding.Snack"/>
+        <import type="net.tensory.whatsmysnack.data.databinding.Snack"/>
         <variable
             name="snack"
             type="Snack"/>

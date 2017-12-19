@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import net.tensory.whatsmysnack.R
-import net.tensory.whatsmysnack.data.models.databinding.Snack
+import net.tensory.whatsmysnack.data.databinding.Snack
 import net.tensory.whatsmysnack.databinding.SnackListItemBinding
 
 /**

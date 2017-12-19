@@ -1,4 +1,4 @@
-package net.tensory.whatsmysnack.data.models.databinding
+package net.tensory.whatsmysnack.data.databinding
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable

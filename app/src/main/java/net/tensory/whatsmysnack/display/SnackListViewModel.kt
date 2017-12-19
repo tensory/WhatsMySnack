@@ -8,7 +8,7 @@ import android.view.View
 import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.data.SnackDataProvider
 import net.tensory.whatsmysnack.data.SnackType
-import net.tensory.whatsmysnack.data.models.databinding.Snack
+import net.tensory.whatsmysnack.data.databinding.Snack
 
 /**
  * Data model for snack list.
@@ -17,7 +17,7 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
     override fun onDismissOrderView() {
         showVeggies = true
         showNonVeggies = true
-        snacks.postValue(filterSnacks().onEach { it.selected = false })
+        snacks.postValue(filterSnacks()?.onEach { it.selected = false })
     }
 
     var showVeggies = true
@@ -43,15 +43,13 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
         }
 
     // Backing field for Snack data
-    private var _snacks = snackDataProvider.fetchSnacks()
-            .map { Snack(it.name, it.type) }
-            .sortedBy { it.name }
+    private var _snacks: MutableLiveData<List<Snack>> = snackDataProvider.fetchSnacks().let {
+        val mutableLiveData = MutableLiveData<List<Snack>>()
+        mutableLiveData.value = it.value
+        mutableLiveData
+    }
 
-    var snacks: MutableLiveData<List<Snack>> = {
-        val liveData = MutableLiveData<List<Snack>>()
-        liveData.value = filterSnacks()
-        liveData
-    }()
+    var snacks: MutableLiveData<List<Snack>> = _snacks
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
         SelectedItemsView(view.context).show(snacks.value?.filter { it.selected }, this)
@@ -74,8 +72,8 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
         addOnPropertyChangedCallback(ControlPropertyChangedCallback())
     }
 
-    private fun filterSnacks(): List<Snack> {
-        return _snacks.filter { snack ->
+    private fun filterSnacks(): List<Snack>? = _snacks.value?.let {
+        it.filter { snack ->
             (snack.type == SnackType.VEGGIE && showVeggies) || (snack.type == SnackType.NON_VEGGIE && showNonVeggies)
         }
     }
