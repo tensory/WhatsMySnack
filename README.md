@@ -4,7 +4,7 @@ A demo Android application.
 
 ## Architecture
 
-This application uses an MVVM approach build around Android data binding. Views are defined as XML resources with databinding to observable model instances. 
+This application uses an MVVM approach built around Android data binding. Views are defined as XML resources with databinding to observable model instances. 
 
 Presenters serve as functional interfaces between view models where the view models need to communicate with each other or an Android component.
 
@@ -21,7 +21,7 @@ Domain:
 
 Presentation:
 * View models implementing `android.databinding.BaseObservable`
-* View XML
+* XML layouts binding to model properties.
 
 Other dependencies:
 * [AssertJ](http://joel-costigliola.github.io/assertj/assertj-core-quick-start.html) assertions for unit-testing interactions on the SnackList model
