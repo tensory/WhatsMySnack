@@ -14,5 +14,10 @@ class ConfirmItemsViewModel(val items: List<Snack>?) : BaseObservable() {
     @Inject lateinit var context: Context
 
     @Bindable
-    fun getItemNames(): String? = items?.sortedBy { it.name }?.joinToString(separator = context.resources.getString(R.string.separator))
+    fun getItemNames(): String? {
+        return items?.
+                map { item -> item.name }?.
+                sortedBy { it }?.
+                joinToString(separator = context.resources.getString(R.string.separator))
+    }
 }

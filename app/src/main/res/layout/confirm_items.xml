@@ -9,5 +9,8 @@
     <TextView
         android:text="@{viewModel.itemNames}"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingStart="?attr/dialogPreferredPadding"
+        android:paddingEnd="?attr/dialogPreferredPadding"
+        />
 </layout>
