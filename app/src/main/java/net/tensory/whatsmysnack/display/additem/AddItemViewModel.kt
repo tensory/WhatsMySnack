@@ -5,14 +5,16 @@ import android.databinding.Bindable
 import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.data.SnackDataProvider
 import net.tensory.whatsmysnack.data.SnackType
+import javax.inject.Inject
 
 /**
  * View model for the Add Item UI.
  */
-class AddItemViewModel(val snackDataProvider: SnackDataProvider) : BaseObservable() {
+class AddItemViewModel : BaseObservable() {
 
-    // This type is automatically bindable.
-    // No further annotation is needed.
+    @Inject
+    lateinit var snackDataProvider: SnackDataProvider
+
     var snackName: String = ""
         @Bindable
         get

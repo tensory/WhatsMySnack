@@ -10,11 +10,16 @@ import net.tensory.whatsmysnack.data.SnackDataProvider
 import net.tensory.whatsmysnack.data.SnackType
 import net.tensory.whatsmysnack.data.databinding.Snack
 import net.tensory.whatsmysnack.display.confirm.ConfirmItemsPresenter
+import javax.inject.Inject
 
 /**
  * Data model for snack list.
  */
-class SnackListViewModel(val confirmItemsPresenter: ConfirmItemsPresenter, val snackDataProvider: SnackDataProvider) : BaseObservable(), ConfirmItemsPresenter.OnDismissDelegate {
+class SnackListViewModel(private val confirmItemsPresenter: ConfirmItemsPresenter) : BaseObservable(), ConfirmItemsPresenter.OnDismissDelegate {
+
+    @Inject
+    lateinit var snackDataProvider: SnackDataProvider
+
     fun LiveData<List<Snack>>.makeVisible(snackType: SnackType, isVisible: Boolean) {
         this.value?.filter { it.type == snackType }?.forEach {
             it.visible = isVisible
