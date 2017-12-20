@@ -3,27 +3,38 @@ package net.tensory.whatsmysnack.display.additem
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import net.tensory.whatsmysnack.BR
+import net.tensory.whatsmysnack.data.SnackDataProvider
 import net.tensory.whatsmysnack.data.SnackType
 
 /**
  * View model for the Add Item UI.
  */
-class AddItemViewModel : BaseObservable() {
+class AddItemViewModel(val snackDataProvider: SnackDataProvider) : BaseObservable() {
+
     // This type is automatically bindable.
     // No further annotation is needed.
     var snackName: String = ""
-
-    var snackType: SnackType = SnackType.VEGGIE
         @Bindable
         get
         set(value) {
             if (field != value) {
                 field = value
-                notifyPropertyChanged(BR.snackType)
+                notifyPropertyChanged(BR.snackName)
+            }
+        }
+
+    var veggieSelected: Boolean = true
+        @Bindable
+        get
+        set(value) {
+            if (field != value) {
+                field = value
+                notifyPropertyChanged(BR.veggieSelected)
             }
         }
 
     fun addItem() {
-        // TODO insert
+        snackDataProvider.insertSnack(snackName,
+                if (veggieSelected) SnackType.VEGGIE else SnackType.NON_VEGGIE)
     }
 }

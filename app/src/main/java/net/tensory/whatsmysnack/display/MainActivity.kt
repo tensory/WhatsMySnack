@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), AddItemPresenter {
 
     override fun addItem() {
         val viewBinding = AddItemBinding.inflate(layoutInflater, null, false)
-        val viewModel = AddItemViewModel()
+        val viewModel = AddItemViewModel(snackDataProvider)
         viewBinding.viewModel = viewModel
         AlertDialog.Builder(this)
                 .setTitle(R.string.add_snack)
@@ -72,6 +72,8 @@ class MainActivity : AppCompatActivity(), AddItemPresenter {
                 adapter.items = data
             }
         })
+
+        // Filter the RecyclerView
         viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(p0: Observable?, p1: Int) {
                 when (p1) {

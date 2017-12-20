@@ -16,4 +16,8 @@ class SnackDataProvider(private val snackAppDatabase: SnackAppDatabase) {
                 if (persistedSnack.type == 0) SnackType.VEGGIE else SnackType.NON_VEGGIE) }
         return domainData
     }
+
+    fun insertSnack(snackName: String, snackType: SnackType) {
+        snackAppDatabase.snackDao().insert(net.tensory.whatsmysnack.data.persistence.room.Snack(snackName, snackType.ordinal))
+    }
 }

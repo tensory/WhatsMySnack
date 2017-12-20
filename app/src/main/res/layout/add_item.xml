@@ -22,7 +22,8 @@
             android:text="@={viewModel.snackName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:inputType="textCapSentences"/>
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -34,12 +35,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/veggie"
-                android:checked="@{viewModel.snackType == SnackType.VEGGIE}"/>
+                android:checked="@={viewModel.veggieSelected}"
+                />
 
             <android.support.v7.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/non_veggie" />
+                android:text="@string/non_veggie"/>
         </RadioGroup>
 
     </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,7 @@
 package net.tensory.whatsmysnack.data.persistence.room
 
 import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 
 /**
@@ -10,4 +11,7 @@ import android.arch.persistence.room.Query
 interface SnackDao {
     @get:Query("SELECT * from snacks")
     val snacks: List<Snack>
+
+    @Insert
+    fun insert(snack: Snack)
 }
