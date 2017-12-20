@@ -24,9 +24,12 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), AddItemPresenter, ConfirmItemsPresenter {
 
-    // region ConfirmItemsPresenter
+    // region ConfirmItemsPresenter implementation
 
     override fun onConfirmOrder(items: List<Snack>?, onDismissDelegate: ConfirmItemsPresenter.OnDismissDelegate) {
+        // Called by SnackListViewModel
+        // after instantiating SnackListViewModel using this activity as a ConfirmItemsPresenter.
+        // The SnackListViewModel provides itself as a ConfirmItemsPresenter.OnDismissDelegate.
         val viewBinding = ConfirmItemsBinding.inflate(layoutInflater, null, false)
         val viewModel = ConfirmItemsViewModel(items)
         (application as SnackApplication).applicationComponent.inject(viewModel)
