@@ -58,7 +58,7 @@ class SnackListViewModel(val confirmItemsPresenter: ConfirmItemsPresenter, val s
     val snacks: LiveData<List<Snack>> = snackDataProvider.fetchSnacks()
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener {
-        confirmItemsPresenter.onConfirmOrder(snacks.value?.filter { it.selected })
+        confirmItemsPresenter.onConfirmOrder(snacks.value?.filter { it.selected }, this)
     }
 
     inner class ControlPropertyChangedCallback : Observable.OnPropertyChangedCallback() {

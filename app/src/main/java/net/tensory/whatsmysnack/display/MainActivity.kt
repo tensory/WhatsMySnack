@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), AddItemPresenter, ConfirmItemsPresente
 
     // region ConfirmItemsPresenter
 
-    override fun onConfirmOrder(items: List<Snack>?) {
+    override fun onConfirmOrder(items: List<Snack>?, onDismissDelegate: ConfirmItemsPresenter.OnDismissDelegate) {
         val viewBinding = ConfirmItemsBinding.inflate(layoutInflater, null, false)
         val viewModel = ConfirmItemsViewModel(items)
         (application as SnackApplication).applicationComponent.inject(viewModel)
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), AddItemPresenter, ConfirmItemsPresente
                 .setTitle(R.string.confirm_order)
                 .setView(viewBinding.root)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
-//                    onDismissOrderView()
+                    onDismissDelegate.onDismissOrderView()
                 }
                 .show()
     }
