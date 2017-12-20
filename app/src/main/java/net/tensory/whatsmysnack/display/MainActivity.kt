@@ -2,11 +2,13 @@ package net.tensory.whatsmysnack.display
 
 import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
+import android.databinding.Observable
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.R
 import net.tensory.whatsmysnack.SnackApplication
 import net.tensory.whatsmysnack.data.SnackDataProvider
@@ -68,6 +70,15 @@ class MainActivity : AppCompatActivity(), AddItemPresenter {
         viewModel.snacks.observe(this, Observer { data ->
             data?.let {
                 adapter.items = data
+            }
+        })
+        viewModel.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(p0: Observable?, p1: Int) {
+                when (p1) {
+                    BR.showVeggies,
+                    BR.showNonVeggies ->
+                        adapter.filter.filter(null)
+                }
             }
         })
     }
