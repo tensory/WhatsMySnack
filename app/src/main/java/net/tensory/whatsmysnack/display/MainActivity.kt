@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), AddItemPresenter {
 
         viewModel.snacks.observe(this, Observer { data ->
             data?.let {
-                adapter.items = data
+                adapter.items = data.sortedBy { snack -> snack.name }
             }
         })
 

@@ -9,7 +9,6 @@ import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.data.SnackDataProvider
 import net.tensory.whatsmysnack.data.SnackType
 import net.tensory.whatsmysnack.data.databinding.Snack
-import java.util.Collections
 
 /**
  * Data model for snack list.
@@ -20,10 +19,6 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
             it.visible = isVisible
             it.notifyChange()
         }
-    }
-
-    private fun LiveData<List<Snack>>.alphabetize() = this.value?.let {
-        Collections.sort(it, { s1, s2 -> s1.name.compareTo(s2.name) })
     }
 
     override fun onDismissOrderView() {
@@ -59,7 +54,7 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
             }
         }
 
-    val snacks: LiveData<List<Snack>> = snackDataProvider.fetchSnacks().also { it.alphabetize() }
+    val snacks: LiveData<List<Snack>> = snackDataProvider.fetchSnacks()
 
     fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
         SelectedItemsView(view.context).show(snacks.value?.filter { it.selected }, this)
