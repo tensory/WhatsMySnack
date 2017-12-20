@@ -16,6 +16,8 @@ class ApplicationModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideSnackAppDatabase(): SnackAppDatabase = RoomAsset.databaseBuilder(application.applicationContext, SnackAppDatabase::class.java, SnackAppDatabase.name)
+            // This is inadvisable.
+            // Better to execute queries through an Rx-managed thread or another thread executor.
             .allowMainThreadQueries()
             .build()
 }
