@@ -12,13 +12,36 @@ import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.R
 import net.tensory.whatsmysnack.SnackApplication
 import net.tensory.whatsmysnack.data.SnackDataProvider
+import net.tensory.whatsmysnack.data.databinding.Snack
 import net.tensory.whatsmysnack.databinding.ActivityMainBinding
 import net.tensory.whatsmysnack.databinding.AddItemBinding
+import net.tensory.whatsmysnack.databinding.ConfirmItemsBinding
 import net.tensory.whatsmysnack.display.additem.AddItemPresenter
 import net.tensory.whatsmysnack.display.additem.AddItemViewModel
+import net.tensory.whatsmysnack.display.confirm.ConfirmItemsPresenter
+import net.tensory.whatsmysnack.display.confirm.ConfirmItemsViewModel
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), AddItemPresenter {
+class MainActivity : AppCompatActivity(), AddItemPresenter, ConfirmItemsPresenter {
+
+    // region ConfirmItemsPresenter
+
+    override fun onConfirmOrder(items: List<Snack>?) {
+        val viewBinding = ConfirmItemsBinding.inflate(layoutInflater, null, false)
+        val viewModel = ConfirmItemsViewModel(items)
+        (application as SnackApplication).applicationComponent.inject(viewModel)
+
+        viewBinding.viewModel = viewModel
+        AlertDialog.Builder(this)
+                .setTitle(R.string.confirm_order)
+                .setView(viewBinding.root)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+//                    onDismissOrderView()
+                }
+                .show()
+    }
+
+    // endregion
 
     // region AddItemPresenter implementation
 
@@ -64,7 +87,7 @@ class MainActivity : AppCompatActivity(), AddItemPresenter {
         val adapter = SnackListAdapter()
         viewBinding.snacksList.adapter = adapter
 
-        val viewModel = SnackListViewModel(snackDataProvider)
+        val viewModel = SnackListViewModel(this, snackDataProvider)
         viewBinding.viewModel = viewModel
 
         viewModel.snacks.observe(this, Observer { data ->

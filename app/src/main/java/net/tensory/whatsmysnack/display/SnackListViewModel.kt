@@ -9,11 +9,12 @@ import net.tensory.whatsmysnack.BR
 import net.tensory.whatsmysnack.data.SnackDataProvider
 import net.tensory.whatsmysnack.data.SnackType
 import net.tensory.whatsmysnack.data.databinding.Snack
+import net.tensory.whatsmysnack.display.confirm.ConfirmItemsPresenter
 
 /**
  * Data model for snack list.
  */
-class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(), SelectedItemsView.OnDismissDelegate {
+class SnackListViewModel(val confirmItemsPresenter: ConfirmItemsPresenter, val snackDataProvider: SnackDataProvider) : BaseObservable(), ConfirmItemsPresenter.OnDismissDelegate {
     fun LiveData<List<Snack>>.makeVisible(snackType: SnackType, isVisible: Boolean) {
         this.value?.filter { it.type == snackType }?.forEach {
             it.visible = isVisible
@@ -56,8 +57,8 @@ class SnackListViewModel(snackDataProvider: SnackDataProvider) : BaseObservable(
 
     val snacks: LiveData<List<Snack>> = snackDataProvider.fetchSnacks()
 
-    fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener { view ->
-        SelectedItemsView(view.context).show(snacks.value?.filter { it.selected }, this)
+    fun onSubmitButtonClicked(): View.OnClickListener = View.OnClickListener {
+        confirmItemsPresenter.onConfirmOrder(snacks.value?.filter { it.selected })
     }
 
     inner class ControlPropertyChangedCallback : Observable.OnPropertyChangedCallback() {

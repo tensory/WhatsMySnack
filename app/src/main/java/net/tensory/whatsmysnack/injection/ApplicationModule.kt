@@ -1,6 +1,7 @@
 package net.tensory.whatsmysnack.injection
 
 import android.app.Application
+import android.content.Context
 import com.huma.room_for_asset.RoomAsset
 import dagger.Module
 import dagger.Provides
@@ -12,6 +13,9 @@ import javax.inject.Singleton
  */
 @Module
 class ApplicationModule(private val application: Application) {
+
+    @Provides
+    fun provideContext(): Context = application
 
     @Provides
     @Singleton
