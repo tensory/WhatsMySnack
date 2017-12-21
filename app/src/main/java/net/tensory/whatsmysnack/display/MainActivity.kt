@@ -50,8 +50,7 @@ class MainActivity : AppCompatActivity(), AddItemPresenter, ConfirmItemsPresente
 
     override fun addItem() {
         val viewBinding = AddItemBinding.inflate(layoutInflater, null, false)
-        val viewModel = AddItemViewModel()
-        (application as SnackApplication).dataComponent.inject(viewModel)
+        val viewModel = AddItemViewModel(snackDataProvider)
         viewBinding.viewModel = viewModel
         AlertDialog.Builder(this)
                 .setTitle(R.string.add_snack)
@@ -91,8 +90,7 @@ class MainActivity : AppCompatActivity(), AddItemPresenter, ConfirmItemsPresente
         val adapter = SnackListAdapter()
         viewBinding.snacksList.adapter = adapter
 
-        val viewModel = SnackListViewModel(this)
-        (application as SnackApplication).dataComponent.inject(viewModel)
+        val viewModel = SnackListViewModel(snackDataProvider, this)
         viewBinding.viewModel = viewModel
 
         viewModel.snacks.observe(this, Observer { data ->

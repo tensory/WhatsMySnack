@@ -16,6 +16,4 @@ import javax.inject.Singleton
 interface DataComponent {
     fun inject(application: SnackApplication)
     fun inject(mainActivity: MainActivity)
-    fun inject(snackListViewModel: SnackListViewModel)
-    fun inject(addItemViewModel: AddItemViewModel)
 }
